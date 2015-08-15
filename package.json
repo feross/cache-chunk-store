@@ -1,6 +1,6 @@
 {
   "name": "cache-chunk-store",
-  "description": "In-memory LRU cache for any abstract-chunk-store compliant store",
+  "description": "In-memory LRU cache for abstract-chunk-store compliant stores",
   "version": "1.0.0",
   "author": {
     "name": "Feross Aboukhadijeh",
