@@ -34,7 +34,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/feross/cache-chunk-store.git"
+    "url": "git://github.com/feross/cache-chunk-store.git"
   },
   "scripts": {
     "test": "standard && node test"
