@@ -11,18 +11,15 @@ function CacheStore (store, opts) {
   }
 
   this.cache = new LRUCache(opts)
-  this.closed = false
 }
 
 CacheStore.prototype.put = function (index, buf, cb) {
-  if (this.closed) return nextTick(cb, new Error('Storage is closed'))
   this.store.put(index, buf, cb)
 }
 
 CacheStore.prototype.get = function (index, opts, cb) {
   var self = this
   if (typeof opts === 'function') return self.get(index, null, opts)
-  if (self.closed) return nextTick(cb, new Error('Storage is closed'))
 
   var start = (opts && opts.offset) || 0
   var end = opts && opts.length && (start + opts.length)
@@ -38,15 +35,11 @@ CacheStore.prototype.get = function (index, opts, cb) {
 }
 
 CacheStore.prototype.close = function (cb) {
-  if (this.closed) return nextTick(cb, new Error('Storage is closed'))
-  this.closed = true
   this.cache.reset()
   this.store.close(cb)
 }
 
 CacheStore.prototype.destroy = function (cb) {
-  if (this.closed) return nextTick(cb, new Error('Storage is closed'))
-  this.closed = true
   this.cache.reset()
   this.store.destroy(cb)
 }
