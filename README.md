@@ -7,7 +7,7 @@
 [downloads-image]: https://img.shields.io/npm/dm/cache-chunk-store.svg?style=flat
 [downloads-url]: https://npmjs.org/package/cache-chunk-store
 
-### In-memory LRU (least-recently-used) cache for [abstract-chunk-store](https://github.com/mafintosh/abstract-chunk-store) compliant stores
+#### In-memory LRU (least-recently-used) cache for [abstract-chunk-store](https://github.com/mafintosh/abstract-chunk-store) compliant stores
 
 This caches the results of `store.get()` calls using
 [`lru-cache`](https://www.npmjs.com/package/lru-cache). See the `lru-cache` docs for the
