@@ -1,6 +1,6 @@
 module.exports = CacheStore
 
-var LRUCache = require('lru-cache')
+var LRU = require('lru')
 
 function CacheStore (store, opts) {
   if (!(this instanceof CacheStore)) return new CacheStore(store)
@@ -12,7 +12,7 @@ function CacheStore (store, opts) {
     throw new Error('First argument must be abstract-chunk-store compliant')
   }
 
-  this.cache = new LRUCache(opts)
+  this.cache = new LRU(opts)
 }
 
 CacheStore.prototype.put = function (index, buf, cb) {
@@ -37,12 +37,12 @@ CacheStore.prototype.get = function (index, opts, cb) {
 }
 
 CacheStore.prototype.close = function (cb) {
-  this.cache.reset()
+  this.cache = null
   this.store.close(cb)
 }
 
 CacheStore.prototype.destroy = function (cb) {
-  this.cache.reset()
+  this.cache = null
   this.store.destroy(cb)
 }
 
