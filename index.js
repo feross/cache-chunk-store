@@ -6,6 +6,8 @@ function CacheStore (store, opts) {
   if (!(this instanceof CacheStore)) return new CacheStore(store)
 
   this.store = store
+  this.chunkLength = store.chunkLength
+
   if (!this.store || !this.store.get || !this.store.put) {
     throw new Error('First argument must be abstract-chunk-store compliant')
   }
