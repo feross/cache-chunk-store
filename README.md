@@ -1,10 +1,10 @@
 # cache-chunk-store [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url]
 
-[travis-image]: https://img.shields.io/travis/feross/cache-chunk-store.svg?style=flat
+[travis-image]: https://img.shields.io/travis/feross/cache-chunk-store/master.svg
 [travis-url]: https://travis-ci.org/feross/cache-chunk-store
-[npm-image]: https://img.shields.io/npm/v/cache-chunk-store.svg?style=flat
+[npm-image]: https://img.shields.io/npm/v/cache-chunk-store.svg
 [npm-url]: https://npmjs.org/package/cache-chunk-store
-[downloads-image]: https://img.shields.io/npm/dm/cache-chunk-store.svg?style=flat
+[downloads-image]: https://img.shields.io/npm/dm/cache-chunk-store.svg
 [downloads-url]: https://npmjs.org/package/cache-chunk-store
 
 #### In-memory LRU (least-recently-used) cache for [abstract-chunk-store](https://github.com/mafintosh/abstract-chunk-store) compliant stores
