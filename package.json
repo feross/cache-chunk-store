@@ -18,7 +18,7 @@
     "fs-chunk-store": "^1.3.0",
     "immediate-chunk-store": "^1.0.1",
     "memory-chunk-store": "^1.1.1",
-    "standard": "^7.0.0",
+    "standard": "*",
     "tape": "^4.1.0"
   },
   "homepage": "https://github.com/feross/cache-chunk-store",
