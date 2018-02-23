@@ -1,5 +1,7 @@
 # cache-chunk-store [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/feross/cache-chunk-store.svg)](https://greenkeeper.io/)
+
 [travis-image]: https://img.shields.io/travis/feross/cache-chunk-store/master.svg
 [travis-url]: https://travis-ci.org/feross/cache-chunk-store
 [npm-image]: https://img.shields.io/npm/v/cache-chunk-store.svg
