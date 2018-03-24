@@ -35,11 +35,11 @@ function runTest (t, Store) {
   var fsStore = new Store(10)
   var store = new CacheChunkStore(fsStore, { max: 10 })
 
-  store.put(0, new Buffer('0123456789'), function (err) {
+  store.put(0, Buffer.from('0123456789'), function (err) {
     t.error(err)
     store.get(0, function (err, data) {
       t.error(err)
-      t.deepEqual(data, new Buffer('0123456789'))
+      t.deepEqual(data, Buffer.from('0123456789'))
 
       fsStore.get = function () {
         t.fail('get should be cached - not called on underlying store')
@@ -47,7 +47,7 @@ function runTest (t, Store) {
 
       store.get(0, function (err, data) {
         t.error(err)
-        t.deepEqual(data, new Buffer('0123456789'))
+        t.deepEqual(data, Buffer.from('0123456789'))
 
         store.destroy(function (err) {
           t.error(err)
