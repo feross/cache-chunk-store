@@ -26,23 +26,23 @@ npm install cache-chunk-store
 ## Usage
 
 ``` js
-var CacheChunkStore = require('cache-chunk-store')
-var FSChunkStore = require('fs-chunk-store') // any chunk store will work
+const CacheChunkStore = require('cache-chunk-store')
+const FSChunkStore = require('fs-chunk-store') // any chunk store will work
 
-var store = new CacheChunkStore(new FSChunkStore(10), {
+const store = new CacheChunkStore(new FSChunkStore(10), {
   // options are passed through to `lru-cache`
   max: 100 // maximum cache size (this is probably the only option you need)
 })
 
-store.put(0, new Buffer('abc'), function (err) {
+store.put(0, new Buffer('abc'), err => {
   if (err) throw err
 
-  store.get(0, function (err, data) {
+  store.get(0, (err, data) => {
     if (err) throw err
     console.log(data)
 
     // this will be super fast because it's cached in memory!
-    store.get(0, function (err, data) {
+    store.get(0, (err, data) => {
       if (err) throw err
       console.log(data)
     })
