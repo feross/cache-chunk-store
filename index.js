@@ -31,7 +31,7 @@ CacheStore.prototype.get = function (index, opts, cb) {
 
   self.store.get(index, function (err, buf) {
     if (err) return cb(err)
-    if (self.cache !== null) self.cache.set(index, buf)
+    if (self.cache != null) self.cache.set(index, buf)
     cb(null, opts ? buf.slice(start, end) : buf)
   })
 }
