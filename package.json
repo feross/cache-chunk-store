@@ -37,6 +37,6 @@
     "url": "git://github.com/feross/cache-chunk-store.git"
   },
   "scripts": {
-    "test": "standard && node test"
+    "test": "standard && tape test/*.js"
   }
 }
