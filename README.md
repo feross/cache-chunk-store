@@ -53,4 +53,4 @@ store.put(0, new Buffer('abc'), err => {
 
 ## License
 
-MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
+MIT. Copyright (c) [Feross Aboukhadijeh](https://feross.org).
