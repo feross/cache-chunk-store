@@ -1,3 +1,4 @@
+/*! cache-chunk-store. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 const LRU = require('lru')
 
 class CacheStore {
