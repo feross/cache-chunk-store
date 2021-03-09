@@ -14,7 +14,7 @@
 [![abstract chunk store](https://cdn.rawgit.com/mafintosh/abstract-chunk-store/master/badge.svg)](https://github.com/mafintosh/abstract-chunk-store)
 
 This caches the results of `store.get()` calls using
-[`lru-cache`](https://www.npmjs.com/package/lru-cache). See the `lru-cache` docs for the
+[`lru`](https://www.npmjs.com/package/lru). See the `lru` docs for the
 full list of configuration options.
 
 ## Install
