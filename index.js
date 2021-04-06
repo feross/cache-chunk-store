@@ -14,12 +14,15 @@ class CacheStore {
   }
 
   put (index, buf, cb) {
+    if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
+
     this.cache.remove(index)
     this.store.put(index, buf, cb)
   }
 
   get (index, opts, cb) {
     if (typeof opts === 'function') return this.get(index, null, opts)
+    if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
 
     const start = (opts && opts.offset) || 0
     const end = opts && opts.length && (start + opts.length)
@@ -35,11 +38,15 @@ class CacheStore {
   }
 
   close (cb) {
+    if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
+
     this.cache = null
     this.store.close(cb)
   }
 
   destroy (cb) {
+    if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
+
     this.cache = null
     this.store.destroy(cb)
   }
