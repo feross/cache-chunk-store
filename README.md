@@ -1,7 +1,7 @@
-# cache-chunk-store [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
+# cache-chunk-store [![ci][ci-image]][ci-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
 
-[travis-image]: https://img.shields.io/travis/feross/cache-chunk-store/master.svg
-[travis-url]: https://travis-ci.org/feross/cache-chunk-store
+[ci-image]: https://img.shields.io/github/workflow/status/feross/cache-chunk-store/ci/master
+[ci-url]: https://github.com/feross/cache-chunk-store/actions
 [npm-image]: https://img.shields.io/npm/v/cache-chunk-store.svg
 [npm-url]: https://npmjs.org/package/cache-chunk-store
 [downloads-image]: https://img.shields.io/npm/dm/cache-chunk-store.svg
