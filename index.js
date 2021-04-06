@@ -14,6 +14,7 @@ class CacheStore {
   }
 
   put (index, buf, cb) {
+    this.cache.remove(index)
     this.store.put(index, buf, cb)
   }
 
