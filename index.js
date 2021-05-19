@@ -77,7 +77,6 @@ class CacheStore {
     if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
 
     this.cache = null
-    this.inProgressGets = null
     this.store.destroy(cb)
   }
 }
