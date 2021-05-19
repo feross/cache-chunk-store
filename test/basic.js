@@ -39,6 +39,47 @@ test('get should be cached', t => {
   })
 })
 
+test('concurrent gets should only call underlying get once', t => {
+  testAllStores(t, (Store, t) => {
+    t.plan(7)
+
+    const originalStore = new Store(10)
+    const store = new CacheChunkStore(originalStore, { max: 10 })
+
+    store.put(0, Buffer.from('0123456789'), err => {
+      t.error(err)
+
+      let numGetCalls = 0
+      const originalGet = originalStore.get
+      originalStore.get = (index, opts, cb) => {
+        // Need to ensure get isn't recursive to count calls properly
+        if (typeof opts === 'function') return originalStore.get(index, null, opts)
+
+        numGetCalls += 1
+        t.equal(numGetCalls, 1, 'get should be called exactly once')
+
+        originalGet.call(originalStore, index, opts, cb)
+      }
+
+      // First get
+      store.get(0, { offset: 1, length: 2 }, (err, data) => {
+        t.error(err)
+        t.deepEqual(data, Buffer.from('12'))
+      })
+
+      // Second get
+      store.get(0, { offset: 4, length: 3 }, (err, data) => {
+        t.error(err)
+        t.deepEqual(data, Buffer.from('456'))
+
+        store.destroy(err => {
+          t.error(err)
+        })
+      })
+    })
+  })
+})
+
 function testAllStores (t, testFn) {
   const allStores = [
     { name: 'fs-chunk-store', Store: FSChunkStore },
