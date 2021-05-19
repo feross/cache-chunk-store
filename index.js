@@ -1,5 +1,6 @@
 /*! cache-chunk-store. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 const LRU = require('lru')
+const queueMicrotask = require('queue-microtask')
 
 class CacheStore {
   constructor (store, opts) {
@@ -14,23 +15,32 @@ class CacheStore {
     this.cache = new LRU(opts)
   }
 
-  put (index, buf, cb) {
-    if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
+  put (index, buf, cb = () => {}) {
+    if (!this.cache) {
+      return queueMicrotask(() => cb(new Error('CacheStore closed')))
+    }
 
     this.cache.remove(index)
     this.store.put(index, buf, cb)
   }
 
-  get (index, opts, cb) {
+  get (index, opts, cb = () => {}) {
     if (typeof opts === 'function') return this.get(index, null, opts)
-    if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
 
-    const start = (opts && opts.offset) || 0
-    const end = opts && opts.length && (start + opts.length)
+    if (!this.cache) {
+      return queueMicrotask(() => cb(new Error('CacheStore closed')))
+    }
 
-    const buf = this.cache.get(index)
+    if (!opts) opts = {}
+
+    let buf = this.cache.get(index)
     if (buf) {
-      return nextTick(cb, null, opts ? buf.slice(start, end) : buf)
+      const offset = opts.offset || 0
+      const len = opts.length || (buf.length - offset)
+      if (offset !== 0 || len !== buf.length) {
+        buf = buf.slice(offset, len + offset)
+      }
+      return queueMicrotask(() => cb(null, buf))
     }
 
     // See if a get for this index has already started
@@ -42,10 +52,8 @@ class CacheStore {
     }
 
     waiters.push({
-      cb,
-      start,
-      end,
-      needsSlice: !!opts
+      opts,
+      cb
     })
 
     if (!getAlreadyStarted) {
@@ -55,37 +63,40 @@ class CacheStore {
         const inProgressEntry = this.inProgressGets.get(index)
         this.inProgressGets.delete(index)
 
-        for (const { start, end, needsSlice, cb } of inProgressEntry) {
+        for (const { opts, cb } of inProgressEntry) {
           if (err) {
             cb(err)
           } else {
-            cb(null, needsSlice ? buf.slice(start, end) : buf)
+            const offset = opts.offset || 0
+            const len = opts.length || (buf.length - offset)
+            if (offset !== 0 || len !== buf.length) {
+              buf = buf.slice(offset, len + offset)
+            }
+            cb(null, buf)
           }
         }
       })
     }
   }
 
-  close (cb) {
-    if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
+  close (cb = () => {}) {
+    if (!this.cache) {
+      return queueMicrotask(() => cb(new Error('CacheStore closed')))
+    }
 
     this.cache = null
     this.store.close(cb)
   }
 
-  destroy (cb) {
-    if (!this.cache) return nextTick(cb, new Error('CacheStore closed'))
+  destroy (cb = () => {}) {
+    if (!this.cache) {
+      return queueMicrotask(() => cb(new Error('CacheStore closed')))
+    }
 
     this.cache = null
     this.inProgressGets = null
     this.store.destroy(cb)
   }
-}
-
-function nextTick (cb, err, val) {
-  process.nextTick(() => {
-    if (cb) cb(err, val)
-  })
 }
 
 module.exports = CacheStore

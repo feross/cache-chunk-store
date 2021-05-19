@@ -11,7 +11,8 @@
     "url": "https://github.com/feross/cache-chunk-store/issues"
   },
   "dependencies": {
-    "lru": "^3.1.0"
+    "lru": "^3.1.0",
+    "queue-microtask": "^1.2.3"
   },
   "devDependencies": {
     "abstract-chunk-store": "^1.4.0",
