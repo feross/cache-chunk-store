@@ -69,10 +69,11 @@ class CacheStore {
           } else {
             const offset = opts.offset || 0
             const len = opts.length || (buf.length - offset)
+            let slicedBuf = buf
             if (offset !== 0 || len !== buf.length) {
-              buf = buf.slice(offset, len + offset)
+              slicedBuf = buf.slice(offset, len + offset)
             }
-            cb(null, buf)
+            cb(null, slicedBuf)
           }
         }
       })
