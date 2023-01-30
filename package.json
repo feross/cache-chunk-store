@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "abstract-chunk-store": "^1.5.0",
-    "fs-chunk-store": "^2.0.3",
+    "fs-chunk-store": "^4.0.1",
     "immediate-chunk-store": "^2.2.0",
     "memory-chunk-store": "^1.3.5",
     "standard": "*",
